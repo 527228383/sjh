@@ -1,0 +1,25 @@
+server:
+   port: 8090
+
+spring:
+   mvc:
+      view:
+         prefix: /
+         suffix: .jsp
+   profiles:
+      active: dev
+   application:
+      name: sjh
+
+logging:
+   level:
+      com: debug
+
+mybatis:
+   configuration:
+      map-underscore-to-camel-case: true
+
+eureka:
+   client:
+      service-url:
+         defaultZone: http://localhost:11111/eureka/
