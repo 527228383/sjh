@@ -92,6 +92,7 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public User getUserInfo(@ApiParam(value = "用户id", required = true) @PathVariable(value = "id") String id) {
 		return UserService.getUserInfo(id);
+		
 	}
 	
 	/**
