@@ -24,6 +24,7 @@ public interface Supplier<T> {
 	static void staticMethod() {
 	}
 	
+	
 	class Car {
 		public static Car create(final Supplier<Car> supplier) {
 			return supplier.get();
