@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -78,6 +79,19 @@ public class TestJava8 {
 		//特定对象的方法引用：语法instance:method
 		final Car police = Car.create( Car :: new );
 		cars.forEach( police :: follow );
+	}
+	
+	@Test
+	public void testStream() {
+		List<String> list = Arrays.asList("abc","","bc","efg","abcd","","jkl");
+		System.out.println("list:" + list);
+		System.out.println("stream:" + list.stream());
+		System.out.println("filter:" + list.stream().filter(String -> !list.isEmpty()));
+		List<String> filtered = list.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
+		System.out.println("filtered:" + filtered);
+		
+		
+		
 	}
 	
 	interface Converter<T1, T2> {
