@@ -5,10 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @MapperScan(basePackages = {"com.sjh.login.dao"})
 @ComponentScan(basePackages = {"com"}) // 扫描包下的所有组件，包括启动类，servlet 等
 @ServletComponentScan(basePackages = {"com"}) // 扫描包下的所有组件，包括 servlet、 filter等

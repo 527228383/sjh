@@ -1,9 +1,21 @@
 package com.sjh.test;
 
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
+import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -84,14 +96,124 @@ public class TestJava8 {
 	@Test
 	public void testStream() {
 		List<String> list = Arrays.asList("abc","","bc","efg","abcd","","jkl");
-		System.out.println("list:" + list);
-		System.out.println("stream:" + list.stream());
-		System.out.println("filter:" + list.stream().filter(String -> !list.isEmpty()));
-		List<String> filtered = list.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
-		System.out.println("filtered:" + filtered);
+		long count = list.stream().filter( string -> string.isEmpty()).count();
+		System.out.println("==>stream count:" + count);
+		count = list.parallelStream().filter( string -> string.isEmpty()).count();
+		System.out.println("==>parallelStram count:" + count);
+		List<String> filtered = list.stream().filter(string -> !string.isEmpty()).sorted().collect(Collectors.toList());
+		System.out.println("==>Collectors toList:" + filtered);
+		String mergedString = list.stream().filter( string -> !string.isEmpty()).collect(Collectors.joining(","));
+		System.out.println("==>Collectors joining:" + mergedString);
 		
+		Random random = new Random();
+		System.out.println("==>Random forEach:");
+		random.ints().limit(10).forEach( System.out :: println);
+		System.out.println("==>Random sorted forEach:");
+		random.ints().limit(10).sorted().forEach( System.out :: println);
 		
+		System.out.println("==>map forEach:");
+		List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+		List<Integer> squaresList = numbers.stream().map( i -> i * i).distinct().collect(Collectors.toList());
+		squaresList.forEach( System.out :: println);
+		IntSummaryStatistics summaryStatistics = numbers.stream().mapToInt( x -> x).summaryStatistics();
+		System.out.println("==>列表中最大的数:" + summaryStatistics.getMax());
+		System.out.println("==>列表中最小的数:" + summaryStatistics.getMin());
+		System.out.println("==>所有数之和:" + summaryStatistics.getSum());
+		System.out.println("==>平均数:" + summaryStatistics.getAverage());
+	}
+	
+	@Test
+	public void testOptional() {
+		Integer value1 = null;
+		Integer value2 = new Integer(10);
+		// Optional.ofNullable - 允许传递为 null 参数
+		Optional<Integer> a = Optional.ofNullable(value1);
+		// Optional.of - 如果传递的参数是 null，抛出异常 NullPointerException
+		Optional<Integer> b = Optional.of(value2);
+		System.out.println(sum(a, b));
+	}
+	
+	@Test
+	public void testLocalDateTime() {
+		// 本地化日期时间API
+		// 获取当前时间
+		LocalDateTime currentTime = LocalDateTime.now();
+		System.out.println("当前时间:" + currentTime);
 		
+		LocalDate date1 = currentTime.toLocalDate();
+		System.out.println("date1: " + date1);
+		
+		int year = currentTime.getYear();
+		Month month = currentTime.getMonth();
+		int day = currentTime.getDayOfMonth();
+		int hour = currentTime.getHour();
+		int minute = currentTime.getMinute();
+		int second = currentTime.getSecond();
+		System.out.println("年: " + year + ",月: " + month + ",日: " + day + ",时: " + hour + ",分: " + minute + ",秒: " + second);
+		
+		LocalDateTime date2 = currentTime.withDayOfMonth(10).withYear(2018);
+		System.out.println("date2: " + date2);
+		
+		LocalDate date3 = LocalDate.of(2018, Month.DECEMBER, 12);
+		System.out.println("date3: " + date3);
+		
+		LocalTime date4 = LocalTime.of(22, 15);
+		System.out.println("date4: " + date4);
+		
+		LocalTime date5 = LocalTime.parse("16:21:36");
+		System.out.println("date5: " + date5);
+	}
+	
+	@Test
+	public void testZonedDateTime() {
+		// 时区的日期时间API
+		// 获取当前时间
+		ZonedDateTime date1 = ZonedDateTime.parse("2018-12-03T16:15:30+05:30[Asia/Shanghai]");
+		System.out.println("date1: " + date1);
+		ZoneId id = ZoneId.of("Europe/Paris");
+		System.out.println("ZoneId: " + id);
+		
+		ZoneId currentZone = ZoneId.systemDefault();
+		System.out.println("当前时区: " + currentZone);
+		
+	}
+	
+	@Test
+	public void testBase64() {
+		try {
+			// 使用基本编码
+			String base64encodedString = Base64.getEncoder().encodeToString("runoob?java8".getBytes("utf-8"));
+			System.out.println("Base64 编码字符串 (基本):" + base64encodedString);
+			
+			// 解码
+			byte[] base64decodedBytes = Base64.getDecoder().decode(base64encodedString);
+			System.out.println("原始字符串: " + new String(base64decodedBytes, "utf-8"));
+			base64encodedString = Base64.getUrlEncoder().encodeToString("TutorialsPoint?java8".getBytes("utf-8"));
+			System.out.println("Base64 编码字符串(URL): " + base64encodedString);
+			
+			StringBuilder stringBuilder = new StringBuilder();
+			
+			for (int i = 0; i < 10; i++) {
+				stringBuilder.append(UUID.randomUUID().toString());
+			}
+			
+			byte[] mimeBytes = stringBuilder.toString().getBytes("utf-8");
+			String mimeEncodedString = Base64.getMimeEncoder().encodeToString(mimeBytes);
+			System.out.println("Base64 编码字符串(MIME): " + mimeEncodedString);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Integer sum(Optional<Integer> a, Optional<Integer> b) {
+		// isPresent() 判断值是否存在
+		System.out.println("第一个参数值存在:" + a.isPresent());
+		System.out.println("第二个参数值存在:" + b.isPresent());
+		
+		// orElse() 如果值存在，返回它，否则返回默认值
+		Integer value1 = a.orElse(new Integer(0));
+		Integer value2 = b.get();
+		return value1 + value2;
 	}
 	
 	interface Converter<T1, T2> {

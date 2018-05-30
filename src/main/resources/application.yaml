@@ -8,8 +8,8 @@ spring:
          suffix: .jsp
    profiles:
       active: dev
-   application:
-      name: sjh
+##   application:
+##      name: sjh
 
 logging:
    level:
@@ -19,7 +19,7 @@ mybatis:
    configuration:
       map-underscore-to-camel-case: true
 
-eureka:
-   client:
-      service-url:
-         defaultZone: http://localhost:11111/eureka/
+##eureka:
+##   client:
+##      service-url:
+##         defaultZone: http://localhost:11111/eureka/
