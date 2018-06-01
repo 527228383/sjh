@@ -8,7 +8,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 @EnableTransactionManagement
 //@EnableDiscoveryClient
 @MapperScan(basePackages = {"com.sjh.login.dao"})
