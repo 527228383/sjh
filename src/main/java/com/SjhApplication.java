@@ -6,7 +6,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@EnableTransactionManagement
 //@EnableDiscoveryClient
 @MapperScan(basePackages = {"com.sjh.login.dao"})
 @ComponentScan(basePackages = {"com"}) // 扫描包下的所有组件，包括启动类，servlet 等
