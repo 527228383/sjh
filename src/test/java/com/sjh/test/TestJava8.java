@@ -18,8 +18,11 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+import com.sjh.login.entity.User;
 import com.sjh.test.Supplier.Car;
 
 public class TestJava8 {
@@ -27,6 +30,9 @@ public class TestJava8 {
 	final static String salutation = "Hello! ";
 	
 	public static void main(String[] args) {
+		String str = "{\"nodes\":[{\"name\":\"本计划\",\"nodeType\":0,\"nodeId\":\"flow-chart-node01536286160393\",\"positionX\":300,\"positionY\":20,\"className\":\"node-start\",\"removable\":false},{\"nodeType\":1,\"name\":\"债权直接转让  (名称:XTJGBU 金额:123万元)\",\"nodeId\":\"flow-chart-node11536286166329\",\"positionX\":30,\"positionY\":100,\"className\":\"node-process\",\"removable\":true}],\"connections\":[{\"connectionId\":\"con_13\",\"pageSourceId\":\"flow-chart-node01536286160393\",\"pageTargetId\":\"flow-chart-node11536286166329\",\"sourceEndPointUuid\":\"flow-chart-node01536286160393Bottom\",\"targetEndPointUuid\":\"flow-chart-node11536286166329Top\"}]}";
+		
+		
 		List<String> list = new ArrayList<>();
 		list.add("Google");
 		list.add("Baidu");
@@ -74,6 +80,39 @@ public class TestJava8 {
 		Converter<Integer, String> s = (param) ->
 		System.out.println(param + num);
 		s.convert(2);
+		
+		System.out.println("#saf".indexOf("#"));
+	}
+	
+	@Test
+	public void testListDistinct() {
+		List<User> list = new ArrayList<>();
+		list.add(User.builder().userName("zhangsan").passWord("123456").build());
+		list.add(User.builder().userName("zhangsan").passWord("123456").build());
+		list.add(User.builder().userName("zhangsan").passWord("1234567").build());
+		list.add(User.builder().userName("lisi").passWord("123456").build());
+		list.add(User.builder().userName("lisi").passWord("123456").build());
+		list.add(User.builder().userName("wangwu").passWord("123456").build());
+		list.add(User.builder().userName("wangwu").passWord("123456").build());
+		
+		List<User> distinctList = new ArrayList<>();
+		
+		for (User u : list) {
+			
+			boolean exists = false;
+			
+			for (User u1 : distinctList) {
+				if (StringUtils.equals(u.getUserName(), u1.getUserName()) 
+						&& StringUtils.equals(u.getPassWord(), u1.getPassWord())) {
+					exists = true;
+				}
+			}
+			
+			if (!exists) {
+				distinctList.add(u);
+			}
+		}
+		System.out.println(distinctList);
 	}
 	
 	@Test
@@ -83,10 +122,10 @@ public class TestJava8 {
 		final List<Car> cars = Arrays.asList( car );
 		
 		// 静态方法引用：语法 Class::static_method
-		cars.forEach( Car :: collide);
+		cars.forEach( Car :: collide );
 		
 		// 特定类的任意对象的方法引用：语法Class::method
-		cars.forEach( Car :: repair);
+		cars.forEach( Car :: repair );
 		
 		//特定对象的方法引用：语法instance:method
 		final Car police = Car.create( Car :: new );

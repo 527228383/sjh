@@ -1,0 +1,34 @@
+2018-07-06 18:06:30.961  INFO 10788 --- [lettuce-nioEventLoop-6-1] io.lettuce.core.protocol.CommandHandler  : null Unexpected exception during request: java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[na:1.8.0_77]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[na:1.8.0_77]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[na:1.8.0_77]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192) ~[na:1.8.0_77]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[na:1.8.0_77]
+	at io.netty.buffer.PooledUnsafeDirectByteBuf.setBytes(PooledUnsafeDirectByteBuf.java:288) ~[netty-buffer-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1108) ~[netty-buffer-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:345) ~[netty-transport-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:148) ~[netty-transport-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:645) [netty-transport-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:580) [netty-transport-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:497) [netty-transport-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:459) [netty-transport-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:884) [netty-common-4.1.24.Final.jar:4.1.24.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) [netty-common-4.1.24.Final.jar:4.1.24.Final]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_77]
+
+2018-07-06 18:06:32.895  INFO 10788 --- [lettuce-eventExecutorLoop-4-1] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was /127.0.0.1:6380
+2018-07-06 18:06:34.840  WARN 10788 --- [lettuce-nioEventLoop-6-2] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: /127.0.0.1:6380
+2018-07-06 18:06:38.381  INFO 10788 --- [lettuce-eventExecutorLoop-4-2] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was 127.0.0.1:6380
+2018-07-06 18:06:39.400  WARN 10788 --- [lettuce-nioEventLoop-6-3] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: /127.0.0.1:6380
+2018-07-06 18:06:44.680  INFO 10788 --- [lettuce-eventExecutorLoop-4-1] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was 127.0.0.1:6380
+2018-07-06 18:06:45.677  WARN 10788 --- [lettuce-nioEventLoop-6-2] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: /127.0.0.1:6380
+2018-07-06 18:06:49.881  INFO 10788 --- [lettuce-eventExecutorLoop-4-3] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was 127.0.0.1:6380
+2018-07-06 18:06:50.882  WARN 10788 --- [lettuce-nioEventLoop-6-1] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: /127.0.0.1:6380
+2018-07-06 18:06:54.980  INFO 10788 --- [lettuce-eventExecutorLoop-4-1] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was 127.0.0.1:6380
+2018-07-06 18:06:56.031  WARN 10788 --- [lettuce-nioEventLoop-6-2] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: /127.0.0.1:6380
+2018-07-06 18:07:04.286  INFO 10788 --- [lettuce-eventExecutorLoop-4-2] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was 127.0.0.1:6380
+2018-07-06 18:07:05.325  WARN 10788 --- [lettuce-nioEventLoop-6-3] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: /127.0.0.1:6380
+2018-07-06 18:07:21.779  INFO 10788 --- [lettuce-eventExecutorLoop-4-3] i.l.core.protocol.ConnectionWatchdog     : Reconnecting, last destination was 127.0.0.1:6380
+2018-07-06 18:07:22.780  WARN 10788 --- [lettuce-nioEventLoop-6-1] i.l.core.protocol.ConnectionWatchdog     : Cannot reconnect: io.netty.channel.AbstractChannel$AnnotatedConnectException: Connection refused: no further information: /127.0.0.1:6380
