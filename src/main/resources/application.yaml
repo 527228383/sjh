@@ -2,24 +2,41 @@ server:
    port: 8090
 
 spring:
+   application:
+      name: 192.168.227.245:${server.port}
    mvc:
       view:
          prefix: /
          suffix: .jsp
-   profiles:
-      active: dev
-##   application:
-##      name: sjh
+   redis:
+      ## redis连接配置
+      database: 0
+      ## redis单机配置
+      ## host: 192.168.56.128
+      password:
+      ## port: 6378
+      pool:
+         max-idle: 8
+         min-idle: 0
+         max-active: 8
+         max-wait: -1
+      ## redis哨兵配置
+      sentinel:
+         master: mymaster
+         nodes: 192.168.56.128:26377,192.168.56.128:26378,192.168.56.128:26379
 
-logging:
-   level:
-      com: debug
+
+#logging:
+#   level:
+#      com: debug
 
 mybatis:
    configuration:
       map-underscore-to-camel-case: true
 
-##eureka:
-##   client:
-##      service-url:
-##         defaultZone: http://localhost:11111/eureka/
+eureka:
+   client:
+      service-url:
+         defaultZone: http://192.168.56.128:8790/eureka/
+   instance:
+      instance-id: sjh

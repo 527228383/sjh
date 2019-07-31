@@ -19,10 +19,10 @@ public class UserProvider {
 	 */
 	public String gerUserInfo(String id) {
 		return new SQL() {{
-			SELECT("ID, USER_NAME, PASSWORD, SALT");
-			FROM("USER");
+			SELECT("id, user_name, password, salt");
+			FROM("t_user");
 			if (StringUtils.isNotBlank(id)) {
-				WHERE("ID = #{id}");
+				WHERE("id = #{id}");
 			} else {
 				WHERE("1 = 2");
 			}
@@ -36,10 +36,10 @@ public class UserProvider {
 	 */
 	public String saveUserInfo(User user) {
 		return new SQL() {{
-			INSERT_INTO("USER");
-			VALUES("USER_NAME", "#{userName}");
-			VALUES("PASSWORD", "#{passWord}");
-			VALUES("SALT", "#{salt}");
+			INSERT_INTO("t_user");
+			VALUES("user_name", "#{userName}");
+			VALUES("password", "#{passWord}");
+			VALUES("salt", "#{salt}");
 			
 		}}.toString();
 	}
@@ -51,17 +51,17 @@ public class UserProvider {
 	 */
 	public String updateUserInfo(User user) {
 		return new SQL() {{
-			UPDATE("USER");
+			UPDATE("t_user");
 			if (StringUtils.isNotBlank(user.getUserName())) {
-				SET("USER_NAME = #{userName}");
+				SET("user_name = #{userName}");
 			}
 			if (StringUtils.isNotBlank(user.getPassWord())) {
-				SET("PASSWORD = #{passWord}");
+				SET("password = #{passWord}");
 			}
 			if (StringUtils.isNotBlank(user.getSalt())) {
-				SET("SALT = #{salt}");
+				SET("salt = #{salt}");
 			}
-			WHERE("ID = #{id}");
+			WHERE("id = #{id}");
 		}}.toString();
 	}
 }

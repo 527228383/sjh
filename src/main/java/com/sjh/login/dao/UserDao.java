@@ -35,7 +35,7 @@ public interface UserDao {
 	 * 查询用户列表
 	 * @return
 	 */
-	@Select("SELECT ID,USER_NAME,PASSWORD,SALT FROM USER")
+	@Select("SELECT id,user_name,password,salt FROM t_user")
 	List<User> queryUserList();
 	
 	/**
@@ -51,7 +51,7 @@ public interface UserDao {
 	 * @param id
 	 * @return
 	 */
-	@Delete("DELETE FROM USER WHERE ID = #{id}")
+	@Delete("DELETE FROM t_user WHERE id = #{id}")
 	int deleteUserInfo(@Param("id") String id);
 	
 	/**

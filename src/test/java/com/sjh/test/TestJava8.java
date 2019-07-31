@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.sjh.login.entity.User;
 import com.sjh.test.Supplier.Car;
 
