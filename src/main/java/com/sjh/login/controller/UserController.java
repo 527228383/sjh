@@ -1,7 +1,9 @@
 package com.sjh.login.controller;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,26 +173,6 @@ public class UserController {
 	}
 
 	public static void main(String[] args) {
-		String javaPropertyName = "hello_1_world_1_1";
-		char[] chars = javaPropertyName.toCharArray();
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < chars.length; i++) {
-			if (chars[i] == '_') {
-				if(i == chars.length - 1) {
-					break;
-				}
-				if(chars[i + 1] == '_') {
-					continue;
-				}
-				if (String.valueOf(chars[i + 1]).hashCode() <= 65 || String.valueOf(chars[i + 1]).hashCode() >= 90) {
-					sb.append(chars[++i]);
-				} else {
-					sb.append((char)(chars[++i] - 32));
-				}
-			} else {
-				sb.append(chars[i]);
-			}
-		}
-		System.out.println(sb.toString());
+
 	}
 }
