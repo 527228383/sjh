@@ -130,6 +130,7 @@ public class UserController {
 	//@RequestMapping(value = "", method = RequestMethod.POST)
 	public String saveUserInfo(@ApiParam(value = "用户数据", required = true) @RequestBody User user) {
 		int row = UserService.saveUserInfo(user);
+
 		if (row > 0) return "success 新建user: " + user;
 			else return "fail 新建user: " + user;
 	}
