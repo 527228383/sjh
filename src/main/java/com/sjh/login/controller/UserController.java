@@ -1,10 +1,9 @@
 package com.sjh.login.controller;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.sjh.login.entity.Animal;
+import com.sjh.login.entity.Dog;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -174,6 +173,23 @@ public class UserController {
 	}
 
 	public static void main(String[] args) {
+		List<Dog> list = new ArrayList<>();
+		b(list);
+	}
+
+	public static void a(List<Animal> list) {
+		for (Animal animal : list) {
+			System.out.println(animal);
+		}
+	}
+
+	public static void b(List<? extends Animal> list) {
+		for (Animal animal : list) {
+			System.out.println(animal);
+		}
+	}
+
+	public static void c(List<? super Animal> list) {
 
 	}
 }

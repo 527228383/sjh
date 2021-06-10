@@ -1,5 +1,7 @@
 package com;
 
+import net.hasor.spring.boot.EnableHasor;
+import net.hasor.spring.boot.EnableHasorWeb;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,6 +26,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAutoConfiguration //自动载入应用程序所需的所有Bean，当使用Exclude这个属性时，是禁止自动配置某个类
 @SpringBootApplication
 @EnableCaching
+@EnableHasor
+@EnableHasorWeb
 public class SjhApplication {
 
 	public static void main(String[] args) {

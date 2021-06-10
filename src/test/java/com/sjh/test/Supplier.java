@@ -12,7 +12,7 @@ public interface Supplier<T> {
 	
 	// 抽象方法
 	T get();
-	
+
 	// java.lang.Object 中的方法不是抽象方法
 	boolean equals(Object var1);
 	

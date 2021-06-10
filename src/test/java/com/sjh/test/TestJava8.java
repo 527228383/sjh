@@ -1,24 +1,21 @@
 package com.sjh.test;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.IntSummaryStatistics;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.aspectj.util.FuzzyBoolean;
 import org.junit.Test;
 
 import com.sjh.login.entity.User;
@@ -29,10 +26,28 @@ public class TestJava8 {
 	final static String salutation = "Hello! ";
 	
 	public static void main(String[] args) {
+		List<User> userList = new ArrayList<>();
+		User user = new User();
+		user.setUserName("a");
+		userList.add(user);
+
+		user = new User();
+		user.setUserName("b");
+		userList.add(user);
+
+		user = new User();
+		user.setUserName("a,b");
+		userList.add(user);
+
+		Set<String> collect = userList.stream().map(User::getUserName).collect(Collectors.toSet());
+		System.out.println("collect:" + collect);
+
 		String str = "{\"nodes\":[{\"name\":\"本计划\",\"nodeType\":0,\"nodeId\":\"flow-chart-node01536286160393\",\"positionX\":300,\"positionY\":20,\"className\":\"node-start\",\"removable\":false},{\"nodeType\":1,\"name\":\"债权直接转让  (名称:XTJGBU 金额:123万元)\",\"nodeId\":\"flow-chart-node11536286166329\",\"positionX\":30,\"positionY\":100,\"className\":\"node-process\",\"removable\":true}],\"connections\":[{\"connectionId\":\"con_13\",\"pageSourceId\":\"flow-chart-node01536286160393\",\"pageTargetId\":\"flow-chart-node11536286166329\",\"sourceEndPointUuid\":\"flow-chart-node01536286160393Bottom\",\"targetEndPointUuid\":\"flow-chart-node11536286166329Top\"}]}";
 		
-		
+		new ConcurrentHashMap<>();
+
 		List<String> list = new ArrayList<>();
+		list.add("Google");
 		list.add("Google");
 		list.add("Baidu");
 		list.add("Taobao");
@@ -40,7 +55,11 @@ public class TestJava8 {
 		list.add("Sina");
 		TestJava8.sortUsingJava8(list);
 		list.forEach( System.out :: println);
-		
+		System.out.println("===============");
+		list.stream().distinct().forEach(System.out :: println);
+		String s1 = list.stream().filter(vo -> StringUtils.indexOf(vo, "S") > -1).collect(Collectors.joining(","));
+		System.out.println("filter: " + s1);
+
 		// 声明类型
 		MathOperation addition = (int a, int b) -> a + b;
 		
@@ -82,7 +101,45 @@ public class TestJava8 {
 		
 		System.out.println("#saf".indexOf("#"));
 	}
-	
+
+	@Test
+	public void testSimFeature() {
+		String str1 = "出资方基本信息表-招商财富-锐益2号集合资产管理计划-安博通";
+		String str2 = "出资方基本信息表-招商财富-锐益7号集合资产管理计划-中科软";
+		System.out.println("ld=" + SimFeatureUtil.ld(str1, str2));
+		System.out.println("sim=" + SimFeatureUtil.sim(str1, str2));
+
+		Calendar c=Calendar.getInstance();
+		c.set(2020, 9, 1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dayd = sdf.format(c.getTime());
+		System.out.println(dayd);
+
+		int startYear = Integer.parseInt(org.apache.commons.lang.StringUtils.substring("2020-11-09", 4, 6));
+		System.out.println(startYear);
+
+		String d = null;
+		try {
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2020-11-09");
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			cal.roll(Calendar.DAY_OF_MONTH, -1);
+			// d = cal.getTime();
+			d = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+			System.out.println(d);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testLuhn() {
+		LuhnUtil luhnUtil = new LuhnUtil("c1000111012345");
+		int i = luhnUtil.plusOne();
+		System.out.println(i);
+	}
+
 	@Test
 	public void testListDistinct() {
 		List<User> list = new ArrayList<>();
@@ -177,10 +234,19 @@ public class TestJava8 {
 		// 获取当前时间
 		LocalDateTime currentTime = LocalDateTime.now();
 		System.out.println("当前时间:" + currentTime);
-		
+		System.out.println("当前时间+N月:" + currentTime.plusMonths(1));
+		int year1 = currentTime.getYear();
+		System.out.println("year: " + year1);
+		currentTime.getMonth();
 		LocalDate date1 = currentTime.toLocalDate();
-		System.out.println("date1: " + date1);
-		
+		System.out.println("month: " + date1.getMonthValue());
+		System.out.println("date1: " + LocalDate.now().plusMonths((date1.getMonthValue() - 1) / 3 + 1).with(TemporalAdjusters.firstDayOfMonth()));
+
+		LocalDateTime now = LocalDateTime.now();
+		System.out.println("LocalDateTime: " + now);
+		String time = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		System.out.println("LocalDateTime format：" + time);
+
 		int year = currentTime.getYear();
 		Month month = currentTime.getMonth();
 		int day = currentTime.getDayOfMonth();
