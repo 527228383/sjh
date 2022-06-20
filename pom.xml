@@ -27,7 +27,7 @@
 		<lang3.version>3.5</lang3.version>
 		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
 		<swagger-version>2.9.2</swagger-version>
-		<mysql-version>8.0.16</mysql-version>
+		<mysql-version>8.0.28</mysql-version>
 	</properties>
 
 	<dependencies>
